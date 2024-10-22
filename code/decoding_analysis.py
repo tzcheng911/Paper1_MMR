@@ -39,7 +39,6 @@ times = np.linspace(-0.1,0.6,3501)
 
 ts = 0 # -0.1s
 te = 3501 # 0.6s
-
 k_feature = 'all' # 'all' or any k features
 n_cv = 5
 
@@ -53,7 +52,6 @@ tic = time.time()
 
 mmr1 = np.load(root_path + 'adults/adult_group_mmr1_mba_vector_morph.npy',allow_pickle=True) 
 mmr2 = np.load(root_path + 'adults/adult_group_mmr2_pa_vector_morph.npy',allow_pickle=True)
-
 X = np.concatenate((mmr1,mmr2),axis=0)
 X = X[:,:,ts:te] 
 y = np.concatenate((np.repeat(0,len(mmr1)),np.repeat(1,len(mmr1)))) #0 is for mmr1 and 1 is for mmr2
