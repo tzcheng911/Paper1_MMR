@@ -105,7 +105,7 @@ plt.xlabel('MEG v' + str(nv))
 plt.ylabel('EEG')
 plt.title('t = 0.195 s') # change accordingly based on nt
 
-#%%####################################### Figure4ab
+#%%####################################### Figure4ab Adults Native vs. Nonnative MMR
 MEG_mmr1 = np.load(root_path + 'adults/adult_group_mmr1_mba_vector_morph.npy') # cMMR: adults/adult_group_mmr1_vector_morph.npy; iMMR: adults/adult_group_mmr1_mba_vector_morph.npy
 MEG_mmr2 = np.load(root_path + 'adults/adult_group_mmr2_pa_vector_morph.npy') # cMMR: adults/adult_group_mmr2_vector_morph.npy; iMMR: adults/adult_group_mmr2_pa_vector_morph.npy
 plt.figure()
@@ -115,7 +115,7 @@ plt.legend(['Nonnative source-averaged MMR','','Native source-averaged MMR',''])
 plt.xlabel('Time (s)')
 plt.xlim([-0.05, 0.45])
 
-#%%####################################### Figure6ab
+#%%####################################### Figure6ab Infants Native vs. Nonnative MMR
 MEG_mmr1 = np.load(root_path + 'infants/baby_group_mmr1_mba_vector_morph.npy') # cMMR: infants/baby_group_mmr1_vector_morph.npy; iMMR: infants/baby_group_mmr1_mba_vector_morph.npy
 MEG_mmr2 = np.load(root_path + 'infants/baby_group_mmr2_pa_vector_morph.npy') # cMMR: infants/baby_group_mmr2_vector_morph.npy; iMMR: infants/baby_group_mmr2_pa_vector_morph.npy
 plt.figure()
@@ -125,23 +125,24 @@ plt.legend(['Nonnative source-averaged MMR','','Native source-averaged MMR',''])
 plt.xlabel('Time (s)')
 plt.xlim([-0.05, 0.45])
 
-#%%####################################### Figure5abcd adults and Figure7abcd infants Decoding analysis 
-## Figure5ab cMMR: ba to mba vs. ba to pa
+#%%####################################### Figure5abcd and Figure7abcd Decoding analysis 
+# load one of these blocks to see decoding results of adults/infants, cMMR/iMMR
+## Figure5ab cMMR: Adults ba to mba vs. ba to pa
 scores_observed = np.load(root_path + 'adults/adult_scores_conv_morph_kall.npy')
 patterns = np.load(root_path +'adults/adult_patterns_conv_morph_kall.npy')
 scores_permute = np.load(root_path +'adults/adult_vector_scores_100perm_kall_conv.npz')
 
-## Figure5cd iMMR: first - last mba vs. first pa - last pa
+## Figure5cd iMMR: Adults first - last mba vs. first pa - last pa
 scores_observed = np.load(root_path + 'adults/adult_scores_cont_morph_kall.npy')
 patterns = np.load(root_path + 'adults/adult_patterns_cont_morph_kall.npy')
 scores_permute = np.load(root_path + 'adults/adult_vector_scores_100perm_kall_cont.npz')
 
-## Figure7ab cMMR: ba to mba vs. ba to pa
+## Figure7ab cMMR: Infants ba to mba vs. ba to pa
 scores_observed = np.load(root_path + 'infants/baby_scores_conv_morph_kall.npy')
 patterns = np.load(root_path +'infants/baby_patterns_conv_morph_kall.npy')
 scores_permute = np.load(root_path +'infants/baby_vector_scores_100perm_kall_conv.npz')
 
-## Figure7cd iMMR: first - last mba vs. first pa - last pa
+## Figure7cd iMMR: Infants first - last mba vs. first pa - last pa
 scores_observed = np.load(root_path + 'infants/baby_scores_cont_morph_kall.npy')
 patterns = np.load(root_path + 'infants/baby_patterns_cont_morph_kall.npy')
 scores_permute = np.load(root_path + 'infants/baby_vector_scores_100perm_kall_cont.npz')
