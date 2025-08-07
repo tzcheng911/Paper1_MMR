@@ -3,7 +3,7 @@
 """
 Created on Wed Oct 18 11:31:16 2023
 
-Used to visualize MMR paper Figure 3 - 5. 
+Used to visualize MMR paper Figure 3 - 5 and Appendix Figure 1-3. 
 
 @author: tzcheng
 """
@@ -169,8 +169,7 @@ stc_crop = stc.copy().crop(tmin= -0.05, tmax=0.45)
 stc_crop.data = patterns
 stc_crop.plot(src, clim=dict(kind="percent",pos_lims=[90,95,99]), subject='fsaverage', subjects_dir=subjects_dir)
 
-#%%####################################### Supplementary Figure 1 Visualize the EEG time series
-first_ba = np.load(root_path + 'adults/adult_group_dev_reverse_eeg.npy')
+#%%####################################### Appendix Figure 1 Visualize the EEG time series: dev, std, MMR
 last_mba = np.load(root_path + 'adults/adult_group_std1_reverse_eeg.npy')
 last_pa = np.load(root_path + 'adults/adult_group_std2_reverse_eeg.npy')
 last_ba = np.load(root_path + 'adults/adult_group_std_eeg.npy')
@@ -202,31 +201,6 @@ plt.ylabel('Amplitude (uV)')
 plt.xlim([-0.05,0.45])
 plt.ylim([-5,5])
 
-## Reversed calculation
-rMMR1 = first_ba - last_mba
-rMMR2 = first_ba - last_pa
-
-plt.figure()
-plot_err(last_ba*1e6,'k',times)
-plot_err(first_mba*1e6,'r',times)
-plot_err(first_pa*1e6,'b',times)
-plt.title('rMMR calculation')
-plt.legend(['std last_ba','','dev1 first_mba','','dev2 first_pa',''])
-plt.xlabel('Time (s)')
-plt.ylabel('Amplitude (uV)')
-plt.xlim([-0.05,0.45])
-plt.ylim([-5,5])
-
-plt.figure()
-plot_err(rMMR1*1e6,'orange',times)
-plot_err(rMMR2*1e6,'green',times)
-plt.title('rMMR')
-plt.legend(['Nonnative rMMR','','Native rMMR',''])
-plt.xlabel('Time (s)')
-plt.ylabel('Amplitude (uV)')
-plt.xlim([-0.05,0.45])
-plt.ylim([-5,5])
-
 ## Identity calculation
 iMMR1 = first_mba - last_mba
 iMMR2 = first_pa - last_pa
@@ -253,4 +227,120 @@ plt.ylabel('Amplitude (uV)')
 plt.xlim([-0.05,0.45])
 plt.ylim([-5,5])
 
-#%%####################################### Supplementary Figure 2 See the ttcorr and wwcorr plot up
+#%%####################################### Appendix Figure 2 Visualize the MEG sensor time series: dev, std, MMR for adults
+## Visualize adults
+last_mba = np.load(root_path + 'adults/adult_group_std1_reverse_sensor.npy')
+last_pa = np.load(root_path + 'adults/adult_group_std2_reverse_sensor.npy')
+last_ba = np.load(root_path + 'adults/adult_group_std_sensor.npy')
+first_mba = np.load(root_path + 'adults/adult_group_dev1_sensor.npy')
+first_pa = np.load(root_path + 'adults/adult_group_dev2_sensor.npy')
+
+## Conventional calculation
+cMMR1 = first_mba - last_ba
+cMMR2 = first_pa - last_ba
+
+plt.figure()
+plot_err(last_ba.mean(axis=1)*1e15,'k',times)
+plot_err(first_mba.mean(axis=1)*1e15,'r',times)
+plot_err(first_pa.mean(axis=1)*1e15,'b',times)
+plt.title('cMMR calculation')
+plt.legend(['std last_ba','','dev1 first_mba','','dev2 first_pa',''])
+plt.xlabel('Time (s)')
+plt.ylabel('Amplitude (fT)')
+plt.xlim([-0.05,0.45])
+plt.ylim([-75,75])
+
+plt.figure()
+plot_err(cMMR1.mean(axis=1)*1e15,'orange',times)
+plot_err(cMMR2.mean(axis=1)*1e15,'green',times)
+plt.title('cMMR')
+plt.legend(['Nonnative cMMR','','Native cMMR',''])
+plt.xlabel('Time (s)')
+plt.ylabel('Amplitude (fT)')
+plt.xlim([-0.05,0.45])
+plt.ylim([-75,75])
+## Identity calculation
+iMMR1 = first_mba - last_mba
+iMMR2 = first_pa - last_pa
+
+plt.figure()
+plot_err(last_mba.mean(axis=1)*1e15,'m',times)
+plot_err(first_mba.mean(axis=1)*1e15,'r',times)
+plot_err(last_pa.mean(axis=1)*1e15,'c',times)
+plot_err(first_pa.mean(axis=1)*1e15,'b',times)
+plt.title('iMMR calculation')
+plt.legend(['control1 last_mba','','deviant 1 first_mba','','control2 last_pa','','deviant 2 first_pa',''])
+plt.xlabel('Time (s)')
+plt.ylabel('Amplitude (fT)')
+plt.xlim([-0.05,0.45])
+plt.ylim([-75,75])
+
+plt.figure()
+plot_err(iMMR1.mean(axis=1)*1e15,'orange',times)
+plot_err(iMMR2.mean(axis=1)*1e15,'green',times)
+plt.title('iMMR')
+plt.legend(['Nonnative iMMR','','Native iMMR',''])
+plt.xlabel('Time (s)')
+plt.ylabel('Amplitude (fT)')
+plt.xlim([-0.05,0.45])
+plt.ylim([-75,75])
+
+#%%####################################### Appendix Figure 2 Visualize the MEG sensor time series: dev, std, MMR for infants
+last_mba = np.load(root_path + 'infants/baby_group_std1_reverse_sensor.npy')
+last_pa = np.load(root_path + 'infants/baby_group_std2_reverse_sensor.npy')
+last_ba = np.load(root_path + 'infants/baby_group_std_sensor.npy')
+first_mba = np.load(root_path + 'infants/baby_group_dev1_sensor.npy')
+first_pa = np.load(root_path + 'infants/baby_group_dev2_sensor.npy')
+
+#%%
+## Conventional calculation
+cMMR1 = first_mba - last_ba
+cMMR2 = first_pa - last_ba
+
+plt.figure()
+plot_err(last_ba.mean(axis=1)*1e15,'k',times)
+plot_err(first_mba.mean(axis=1)*1e15,'r',times)
+plot_err(first_pa.mean(axis=1)*1e15,'b',times)
+plt.title('cMMR calculation')
+plt.legend(['std last_ba','','dev1 first_mba','','dev2 first_pa',''])
+plt.xlabel('Time (s)')
+plt.ylabel('Amplitude (fT)')
+plt.xlim([-0.05,0.45])
+plt.ylim([-100,100])
+
+plt.figure()
+plot_err(cMMR1.mean(axis=1)*1e15,'orange',times)
+plot_err(cMMR2.mean(axis=1)*1e15,'green',times)
+plt.title('cMMR')
+plt.legend(['Nonnative cMMR','','Native cMMR',''])
+plt.xlabel('Time (s)')
+plt.ylabel('Amplitude (fT)')
+plt.xlim([-0.05,0.45])
+plt.ylim([-100,100])
+## Identity calculation
+iMMR1 = first_mba - last_mba
+iMMR2 = first_pa - last_pa
+
+plt.figure()
+plot_err(last_mba.mean(axis=1)*1e15,'m',times)
+plot_err(first_mba.mean(axis=1)*1e15,'r',times)
+plot_err(last_pa.mean(axis=1)*1e15,'c',times)
+plot_err(first_pa.mean(axis=1)*1e15,'b',times)
+plt.title('iMMR calculation')
+plt.legend(['control1 last_mba','','deviant 1 first_mba','','control2 last_pa','','deviant 2 first_pa',''])
+plt.xlabel('Time (s)')
+plt.ylabel('Amplitude (fT)')
+plt.xlim([-0.05,0.45])
+plt.ylim([-100,100])
+
+plt.figure()
+plot_err(iMMR1.mean(axis=1)*1e15,'orange',times)
+plot_err(iMMR2.mean(axis=1)*1e15,'green',times)
+plt.title('iMMR')
+plt.legend(['Nonnative iMMR','','Native iMMR',''])
+plt.xlabel('Time (s)')
+plt.ylabel('Amplitude (fT)')
+plt.xlim([-0.05,0.45])
+plt.ylim([-100,100])
+
+#%%####################################### Appendix Figure 3 See the ttcorr and wwcorr plot up
