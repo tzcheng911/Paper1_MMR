@@ -235,6 +235,11 @@ last_ba = np.load(root_path + 'adults/adult_group_std_sensor.npy')
 first_mba = np.load(root_path + 'adults/adult_group_dev1_sensor.npy')
 first_pa = np.load(root_path + 'adults/adult_group_dev2_sensor.npy')
 
+## grad (first 204)
+grad_last_mba = last_mba[:,:203,:].mean(axis=1)
+
+## mag (last 102)
+
 ## Conventional calculation
 cMMR1 = first_mba - last_ba
 cMMR2 = first_pa - last_ba
